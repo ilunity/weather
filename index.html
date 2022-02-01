@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Погода от Илюши</title>
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="search">
+				<form class="search__form" action="" onsubmit="return false">
+					<input type="text" class="search__city" placeholder="Aktobe">
+					<button class="search__submit-btn">
+						<img src="img/icons/magnifier.svg" alt="Иконка найти город">
+					</button>
+				</form>
+			</div>
+			<div class="info">
+				<div class="info__main">
+					<div class="info__now info__window info__window_active now-window">
+						<p class="now-window__temperature"></p>
+						<div class="now-window__weather-icon">
+							<img src="img/weather-icons/cloud.svg" alt="Иконка облака">
+						</div>
+						<div class="now-window__city-info city-info">
+							<p class="city-info__title"></p>
+							<div class="city-info__add-favorite city-info__add-favorite_not-added"></div>
+						</div>
+					</div>
+					<div class="info__details info__window details-window">
+						<div class="details-window__city-name">Aktobe</div>
+						<ul class="details-window__parameters-list">
+							<li class="details-window__temperature"></li>
+							<li class="details-window__feeling"></li>
+							<li class="details-window__weather"></li>
+							<li class="details-window__sunrise"></li>
+							<li class="details-window__sunset"></li>
+						</ul>
+					</div>
+					<div class="info__forecast info__window forecast-window">
+						<div class="forecast-window__city-name"></div>
+						<ul class="forecast-window__list">
+						</ul>
+					</div>
+					<div class="info__change-info change-info">
+						<div class="change-info__btn change-info__now change-info__btn_active">Now</div>
+						<div class="change-info__btn change-info__details">Details</div>
+						<div class="change-info__btn change-info__forecast">Forecast</div>
+					</div>
+				</div>
+				<div class="info__location location">
+					<div class="location__title">
+						Added Locations:
+					</div>
+					<ul class="location__list">
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script type="module" src="js/main.js"></script>
+	</body>
+</html>
