@@ -9,27 +9,10 @@ import {
     favoriteCityTemplate
 } from "./view.js";
 import {storage} from "./storage.js";
+import {format} from 'date-fns';
 
 const MAX_FAVORITE_CITIES_NUMBER = 7;
 
-
-function getStringFromDateType(date) {
-    // return hours and minutes from date type in UTC
-    let resultTime = "";
-
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-
-    resultTime += (hours < 10 ?
-        "0" + hours :
-        hours);
-
-    resultTime += ":" + (minutes < 10 ?
-        "0" + minutes :
-        minutes);
-
-    return resultTime;
-}
 
 function getLocalTime(timeInSeconds, timezoneOffset) {
     const queryDate = new Date(timeInSeconds * 1000);
@@ -65,8 +48,8 @@ function fillDetailsWindow({
     const sunriseDate = getLocalTime(sunrise, timezoneOffset);
     const sunsetDate = getLocalTime(sunset, timezoneOffset);
 
-    detailsWindow.sunrise.textContent = "Sunrise: " + getStringFromDateType(sunriseDate);
-    detailsWindow.sunset.textContent = "Sunset: " + getStringFromDateType(sunsetDate);
+    detailsWindow.sunrise.textContent = "Sunrise: " + format(sunriseDate, 'HH:mm');
+    detailsWindow.sunset.textContent = "Sunset: " + format(sunsetDate, 'HH:mm');
 }
 
 function fillForecastWindow({list: forecastList}, cityName) {
