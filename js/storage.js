@@ -1,3 +1,5 @@
+import {getCookie, setCookie} from "./cookieManager";
+
 const storage = {
     favoriteCities: [],
     currentCity: ""
@@ -16,11 +18,13 @@ storage.saveFavoriteCities = function () {
 }
 
 storage.saveCurrentCity = function (cityName) {
-    this.currentCity = cityName;
-    localStorage.setItem(
-        "currentCity",
-        cityName
-    );
+    // this.currentCity = cityName;
+    // localStorage.setItem(
+    //     "currentCity",
+    //     cityName
+    // );
+
+    setCookie("currentCity", cityName)
 }
 
 storage.addFavoriteCity = function (cityName) {
@@ -38,7 +42,9 @@ storage.getFavoriteCities = function() {
 }
 
 storage.getCurrentCity = function () {
-    return this.currentCity;
+    // return this.currentCity;
+
+    return getCookie("currentCity")
 }
 
 
