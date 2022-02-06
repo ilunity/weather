@@ -14,6 +14,19 @@ import {format} from 'date-fns';
 const MAX_FAVORITE_CITIES_NUMBER = 7;
 
 
+function getWeatherCSSClassNameFromID(weatherID) {
+    const strWeatherID = String(weatherID);
+
+    if (strWeatherID.startsWith('2')) return 'thunderstorm';
+    if (strWeatherID.startsWith('3')) return 'shower-rain';
+    if (strWeatherID.startsWith('5')) return 'rain';
+    if (strWeatherID.startsWith('6')) return 'snow';
+    if (strWeatherID.startsWith('7')) return 'mist';
+
+    if (strWeatherID === '800') return 'clear-sky';
+    if (strWeatherID.startsWith('80')) return 'scattered-clouds';
+}
+
 function getLocalTime(timeInSeconds, timezoneOffset) {
     const queryDate = new Date(timeInSeconds * 1000);
     timezoneOffset *= 1000;
@@ -26,9 +39,12 @@ function getLocalTime(timeInSeconds, timezoneOffset) {
     return new Date(queryDate.getTime() + timezoneDifference);
 }
 
-function fillNowWindow({main: {temp}}, cityName) {
+function fillNowWindow({main: {temp}, weather: [{id: weatherID}]}, cityName) {
     nowWindow.temp.textContent = Math.round(temp) + "°";
     nowWindow.cityName.textContent = cityName;
+
+    const weatherClassName = getWeatherCSSClassNameFromID(weatherID);
+    nowWindow.setWeatherIcon(weatherClassName);
     makeCorrectFavoriteStatus();
 }
 
@@ -57,7 +73,9 @@ function fillForecastWindow({list: forecastList}, cityName) {
 
     forecastWindow.resetForecastItems();
     for (let forecastItem of forecastList) {
-        forecastWindow.createForecastItem(forecastItem);
+        let weatherClassName = getWeatherCSSClassNameFromID(forecastItem.weather[0].id);
+
+        forecastWindow.createForecastItem(forecastItem, weatherClassName);
     }
 }
 

@@ -6,7 +6,7 @@ const searchForm = {
 
 const nowWindow = {
     temp: document.querySelector(".now-window__temperature"),
-    image: document.querySelector(".now-window__weather-icon img"),
+    image: document.querySelector(".now-window__weather-icon"),
     cityName: document.querySelector(".now-window__city-info .city-info__title"),
     addFavoriteBtn: document.querySelector(".now-window__city-info .city-info__add-favorite")
 }
@@ -14,6 +14,20 @@ nowWindow.changeStatus = function () {
     let windowElem = document.querySelector(".now-window");
     windowElem.classList.toggle("info__window_active");
 };
+
+nowWindow.getCurrentWeatherClass = function () {
+    for (let className of nowWindow.image.classList) {
+        if (className.startsWith('weather-icon')) return className;
+    }
+}
+
+nowWindow.setWeatherIcon = function (weatherClassName) {
+    const currentWeatherClass = nowWindow.getCurrentWeatherClass();
+    nowWindow.image.classList.remove(currentWeatherClass);
+
+    nowWindow.image.classList.add(`weather-icon_${weatherClassName}`);
+}
+
 
 const detailsWindow = {
     cityName: document.querySelector(".details-window__city-name"),
@@ -36,23 +50,23 @@ forecastWindow.changeStatus = function () {
     let windowElem = document.querySelector(".forecast-window");
     windowElem.classList.toggle("info__window_active");
 }
-forecastWindow.createForecastItem = function(data) {
+forecastWindow.createForecastItem = function({dt: timestamp, main:{temp, feels_like}, weather: [{main: weatherType}]}, weatherClassName) {
     const forecastItem = document.createElement('li');
     forecastItem.className = 'forecast-window__item forecast-item';
 
-    const date = new Date(data.dt * 1000);
+    const date = new Date(timestamp * 1000);
     forecastItem.innerHTML = `<div class="forecast-item__date">
                                       <div class="forecast-item__day">${date.getDate()} ${getStringMonth(date.getMonth())}</div>
                                       <div class="forecast-item__time">${getStringFromDateType(date)}</div>
                                   </div>
                                   <div class="forecast-item__weather">
                                       <div class="forecast-item__temp-parameters">
-                                          <div class="forecast-item__temp">Temperature: ${Math.round(data.main.temp)}°</div>
-                                          <div class="forecast-item__temp-feeling">Feels like: ${Math.round(data.main.feels_like)}°</div>
+                                          <div class="forecast-item__temp">Temperature: ${Math.round(temp)}°</div>
+                                          <div class="forecast-item__temp-feeling">Feels like: ${Math.round(feels_like)}°</div>
                                       </div>
                                       <div class="forecast-item__weather-parameters">
-                                          <div class="forecast-item__weather-type">${data.weather[0].main}</div>
-                                          <div class="forecast-item__weather-icon forecast-item__weather-icon_rain"></div>
+                                          <div class="forecast-item__weather-type">${weatherType}</div>
+                                          <div class="forecast-item__weather-icon weather-icon_${weatherClassName}"></div>
                                       </div>
                                   </div>`;
 

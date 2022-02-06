@@ -86,13 +86,21 @@ $info-height: 400px;
     align-self: center;
     margin-bottom: 100px;
 
-    max-width: 80px;
-    max-height: 60px;
-    img {
-      width: 100%;
-      height: 100%;
-    }
+    width: 80px;
+    height: 60px;
   }
+}
+
+.weather-icon {
+  &_broken-clouds {background: url("../img/weather-icons/broken-clouds.png") center/cover no-repeat;}
+  &_clear-sky {background: url("../img/weather-icons/clear-sky.png") center/cover no-repeat;}
+  &_few-clouds {background: url("../img/weather-icons/few-clouds.png") center/cover no-repeat;}
+  &_mist {background: url("../img/weather-icons/mist.png") center/cover no-repeat;}
+  &_rain {background: url("../img/weather-icons/rain.png") center/cover no-repeat;}
+  &_scattered-clouds {background: url("../img/weather-icons/scattered-clouds.png") center/cover no-repeat;}
+  &_shower-rain {background: url("../img/weather-icons/shower-rain.png") center/cover no-repeat;}
+  &_snow {background: url("../img/weather-icons/snow.png") center/cover no-repeat;}
+  &_thunderstorm {background: url("../img/weather-icons/thunderstorm.png") center/cover no-repeat;}
 }
 
 .details-window {
@@ -168,9 +176,9 @@ $info-height: 400px;
   &__weather-icon {
     width: 30px;
     height: 30px;
-    &_rain {
-      background: url("../img/weather-icons/rain.svg") center no-repeat;
-    }
+    //&_rain {
+    //  background: url("../img/weather-icons/rain.png") center/auto no-repeat;
+    //}
   }
 }
 
